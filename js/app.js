@@ -46,12 +46,16 @@ function startGame() {
 	});
 
 	deck.innerHTML = cardHTML.join(''); // add the cardHTML to the .deck <ul> in the html
+	let moves = 0;
 }
 
 startGame();
 
 const card = document.querySelectorAll('.card');
-var openCards = []; //empty array to hold the open cards
+let openCards = []; //empty array to hold the open cards
+let moves = 0; //to count the number of moves/ card clicks
+let movesCounter = document.querySelector('.moves');
+
 
 card.forEach(function (cardFlip) {
 	cardFlip.addEventListener('click', function(e) {
@@ -84,6 +88,10 @@ card.forEach(function (cardFlip) {
 							openCards = []; // set card array back to 0
 						}, 1000); //delay flip back over 1000 miliseconds = 1 second
 					}
+					moves += 1; // increment moves after 2 cards clicked
+					console.log(moves);
+					console.log(movesCounter);
+					movesCounter.innerHTML = moves;
 				}
 		}
 	});
