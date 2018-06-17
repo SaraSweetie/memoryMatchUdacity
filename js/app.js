@@ -9,11 +9,11 @@ var cardDeck = [ "fa-diamond" ,"fa-diamond",
 				"fa-anchor", "fa-anchor",
 				"fa-cube", "fa-cube",
 				"fa-paper-plane-o", "fa-paper-plane-o"
-			];
+			]; // card icons stored in an array
 
 function buildDeck(icon) {			
 	return `<li class="card"> <i class="fa ${icon}"></i> </li>`;
-}
+} // builds the .deck <ul> dynamically using cardDeck array
 
 /*
  * Display the cards on the page
@@ -41,11 +41,11 @@ function shuffle(array) {
 function startGame() {
 	const deck = document.querySelector('.deck');  // <ul> with .deck class
 
-	let cardHTML = cardDeck.map(function(cards) {
+	let cardHTML = shuffle(cardDeck).map(function(cards) {
 		return buildDeck(cards);
 	});
 
-	deck.innerHTML = cardHTML.join('');
+	deck.innerHTML = cardHTML.join(''); // add the cardHTML to the .deck <ul> in the html
 }
 
 startGame();
