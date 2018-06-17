@@ -32,12 +32,15 @@ card.forEach(function (cardFlip) {
 	cardFlip.addEventListener('click', function(e) {
 	openCards.push(cardFlip); //adds current card clicked and flipped to the openCards array
 
-		if (openCards.length > 2) {
-
-			cardFlip.classList.remove('open', 'show'); //cards flip by adding .open and .show classes
-		} else {
-			
+			console.log(`number of open cards ${openCards.length} `);
 			cardFlip.classList.add('open', 'show'); //cards flip by adding .open and .show classes
+		if (openCards.length == 2) {
+			setTimeout(function() {
+				openCards.forEach(function(card) {
+					card.classList.remove('open', 'show'); //cards flip by adding .open and .show classes
+				});
+				openCards = [];
+			}, 1000); //delay flip back over 1000 miliseconds = 1 second
 		}
 	});
 });
