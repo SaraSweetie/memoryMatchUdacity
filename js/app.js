@@ -26,11 +26,19 @@ function shuffle(array) {
 }
 
 const card = document.querySelectorAll('.card');
-
+var openCards = []; //empty array to hold the open cards
 
 card.forEach(function (cardFlip) {
 	cardFlip.addEventListener('click', function(e) {
-		cardFlip.classList.add('open', 'show');
+	openCards.push(cardFlip); //adds current card clicked and flipped to the openCards array
+
+		if (openCards.length > 2) {
+
+			cardFlip.classList.remove('open', 'show'); //cards flip by adding .open and .show classes
+		} else {
+			
+			cardFlip.classList.add('open', 'show'); //cards flip by adding .open and .show classes
+		}
 	});
 });
 
