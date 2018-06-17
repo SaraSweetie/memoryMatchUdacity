@@ -30,17 +30,21 @@ var openCards = []; //empty array to hold the open cards
 
 card.forEach(function (cardFlip) {
 	cardFlip.addEventListener('click', function(e) {
-	openCards.push(cardFlip); //adds current card clicked and flipped to the openCards array
-
+	
+		if (!cardFlip.classList.contains('open') && !cardFlip.classList.contains('show') && !cardFlip.classList.contains('match') ) {
+			openCards.push(cardFlip); //adds current card clicked and flipped to the openCards array
 			console.log(`number of open cards ${openCards.length} `);
 			cardFlip.classList.add('open', 'show'); //cards flip by adding .open and .show classes
-		if (openCards.length == 2) {
-			setTimeout(function() {
-				openCards.forEach(function(card) {
-					card.classList.remove('open', 'show'); //cards flip by adding .open and .show classes
-				});
-				openCards = [];
-			}, 1000); //delay flip back over 1000 miliseconds = 1 second
+				
+				if (openCards.length == 2) {
+					setTimeout(function() {
+						openCards.forEach(function(card) {
+							card.classList.remove('open', 'show'); //cards flip by removing .open and .show classes
+						});
+						openCards = []; // set card array back to 0
+					}, 1000); //delay flip back over 1000 miliseconds = 1 second
+				}
+			
 		}
 	});
 });
