@@ -91,7 +91,11 @@ card.forEach(function (cardFlip) {
 					moves += 1; // increment moves after 2 cards clicked
 					console.log(moves);
 					console.log(movesCounter);
-					movesCounter.innerHTML = moves;
+					if (moves == 1) {
+						movesCounter.innerHTML = moves + ' Move';
+					}else {
+						movesCounter.innerHTML = moves + ' Moves';
+					}
 				}
 		}
 	});
