@@ -12,7 +12,7 @@ var cardDeck = [ "fa-diamond" ,"fa-diamond",
 			]; // card icons stored in an array
 
 function buildDeck(icon) {			
-	return `<li class="card"> <i class="fa ${icon}"></i> </li>`;
+	return `<li class="card" data-card="${icon}"> <i class="fa ${icon}"></i> </li>`;
 } // builds the .deck <ul> dynamically using cardDeck array
 
 /*
@@ -68,16 +68,23 @@ card.forEach(function (cardFlip) {
 					//openCards.classList.add('match');
 				//}
 
-				//if cards don't match unFlip them
 				if (openCards.length == 2) {
-					setTimeout(function() {
-						openCards.forEach(function(card) {
-							card.classList.remove('open', 'show'); //cards flip by removing .open and .show classes
-						});
-						openCards = []; // set card array back to 0
-					}, 1000); //delay flip back over 1000 miliseconds = 1 second
+					//if 2 cards showing match
+					if (openCards[0].dataset.card === openCards[1].dataset.card) {
+						console.log('match!!');
+						openCards[0].classList.add('open', 'show', 'match'); //first card clicked on added to the array [0] 
+						openCards[1].classList.add('open', 'show', 'match'); //second card clicked on added to the array [1]
+
+						openCards = []; // after match set number of cards in array back to 0
+					}else {//if cards don't match unFlip them
+						setTimeout(function() {
+							openCards.forEach(function(card) {
+								card.classList.remove('open', 'show'); //cards flip by removing .open and .show classes
+							});
+							openCards = []; // set card array back to 0
+						}, 1000); //delay flip back over 1000 miliseconds = 1 second
+					}
 				}
-			
 		}
 	});
 });
