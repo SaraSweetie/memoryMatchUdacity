@@ -1,7 +1,19 @@
 /*
  * Create a list that holds all of your cards
  */
+var cardDeck = [ "fa-diamond" ,"fa-diamond",
+				"fa-bomb", "fa-bomb",
+				"fa-leaf", "fa-leaf",
+				"fa-bolt", "fa-bolt",
+				"fa-bicycle", "fa-bicycle",
+				"fa-anchor", "fa-anchor",
+				"fa-cube", "fa-cube",
+				"fa-paper-plane-o", "fa-paper-plane-o"
+			];
 
+function buildDeck(icon) {			
+	return `<li class="card"> <i class="fa ${icon}"></i> </li>`;
+}
 
 /*
  * Display the cards on the page
@@ -25,17 +37,38 @@ function shuffle(array) {
     return array;
 }
 
+
+function startGame() {
+	const deck = document.querySelector('.deck');  // <ul> with .deck class
+
+	let cardHTML = cardDeck.map(function(cards) {
+		return buildDeck(cards);
+	});
+
+	deck.innerHTML = cardHTML.join('');
+}
+
+startGame();
+
 const card = document.querySelectorAll('.card');
 var openCards = []; //empty array to hold the open cards
 
 card.forEach(function (cardFlip) {
 	cardFlip.addEventListener('click', function(e) {
 	
-		if (!cardFlip.classList.contains('open') && !cardFlip.classList.contains('show') && !cardFlip.classList.contains('match') ) {
+		if (!cardFlip.classList.contains('open') && !cardFlip.classList.contains('show') && !cardFlip.classList.contains('match') ) { // prevents same card from being clicked or if card alread matched
 			openCards.push(cardFlip); //adds current card clicked and flipped to the openCards array
 			console.log(`number of open cards ${openCards.length} `);
 			cardFlip.classList.add('open', 'show'); //cards flip by adding .open and .show classes
 				
+				
+
+				//if cards match do this
+				//if (openCards.classList.contains('xxx') ){
+					//openCards.classList.add('match');
+				//}
+
+				//if cards don't match unFlip them
 				if (openCards.length == 2) {
 					setTimeout(function() {
 						openCards.forEach(function(card) {
