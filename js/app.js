@@ -54,8 +54,25 @@ startGame();
 const card = document.querySelectorAll('.card');
 let openCards = []; //empty array to hold the open cards
 let moves = 0; //to count the number of moves/ card clicks
-let movesCounter = document.querySelector('.moves');
+const movesCounter = document.querySelector('.moves');
+const resetDeck = document.querySelector('.restart');
 
+
+// restart button
+resetDeck.addEventListener('click', function(e) {
+	// clear moves
+	moves = 0;
+	movesCounter.innerHTML = moves + ' Moves';
+
+	// flip all cards back over, *Array.from() converts NodeList to an array with the new ES6*
+	let openCardsArray = Array.from(document.querySelectorAll('.card'));
+	openCardsArray.forEach(function(array){
+		array.classList.remove('open', 'show', 'match');
+	});
+	
+	// clear timer
+
+});
 
 card.forEach(function (cardFlip) {
 	cardFlip.addEventListener('click', function(e) {
@@ -68,7 +85,7 @@ card.forEach(function (cardFlip) {
 				
 
 				//if cards match do this
-				//if (openCards.classList.contains('xxx') ){
+				//if (openCards.classList.contains('match') ){
 					//openCards.classList.add('match');
 				//}
 
@@ -89,8 +106,8 @@ card.forEach(function (cardFlip) {
 						}, 1000); //delay flip back over 1000 miliseconds = 1 second
 					}
 					moves += 1; // increment moves after 2 cards clicked
-					console.log(moves);
-					console.log(movesCounter);
+					//console.log(moves);
+					//console.log(movesCounter);
 					if (moves == 1) {
 						movesCounter.innerHTML = moves + ' Move';
 					}else {
