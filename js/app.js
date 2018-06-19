@@ -123,14 +123,25 @@ card.forEach(function (cardFlip) {
 });
 
 function youWin() {
-	//congradulatoins message show
 	const message = document.querySelector('#winnerStats div');
+	const closeBtn = document.querySelector('.close');
+	
+	//congradulatoins message show
 	message.style.visibility = 'visible';
 
-	//popup
 	//playagin button
+
+	//close buttion
+	closeBtn.addEventListener('click', function(e) {
+		message.style.visibility = 'hidden';
+	});
+
 	//time:
+
 	//moves:
+	const movesCounter = document.querySelector('.moves');
+	movesCounter.innerHTML = moves;
+
 	//star rating:
 	
 	//window.alert('you win, working on pop-up message');
