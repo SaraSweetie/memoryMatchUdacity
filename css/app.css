@@ -112,6 +112,10 @@ h2 {
     display: inline-block;
 }
 
+.score-panel span {
+    margin: 0 5%;
+}
+
 .score-panel .restart {
     float: right;
     cursor: pointer;

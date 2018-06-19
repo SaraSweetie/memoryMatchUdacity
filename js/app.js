@@ -55,6 +55,7 @@ const card = document.querySelectorAll('.card');
 let openCards = []; //empty array to hold the open cards
 let matchedCards = []; //empty array to hold the matched cards
 let moves = 0; //to count the number of moves/ card clicks
+const gameTime = document.querySelector('.timer');
 const movesCounter = document.querySelector('.moves');
 const resetDeck = document.querySelector('.restart');
 
@@ -72,11 +73,34 @@ resetDeck.addEventListener('click', function(e) {
 	});
 	
 	// clear timer
+	stopTimer();
 
 });
 
+//game timer
+let time = 0;
+let timer = setInterval(function(){ time ++; console.log(time);}, 1000);
+
+gameTime.innerHTML = 'Time ' + timer;
+function gameTimer() {
+	timer = 0;
+}
+
+function startTimer() {
+	card.addEventListener('click', function(e) {
+		gameTimer();
+	});
+}
+
+function stopTimer() {
+  clearInterval(timer);
+}
+
+
+//card flipping and matching
 card.forEach(function (cardFlip) {
 	cardFlip.addEventListener('click', function(e) {
+		
 	
 		if (!cardFlip.classList.contains('open') && !cardFlip.classList.contains('show') && !cardFlip.classList.contains('match') ) { // prevents same card from being clicked or if card alread matched
 			openCards.push(cardFlip); //adds current card clicked and flipped to the openCards array
@@ -95,6 +119,7 @@ card.forEach(function (cardFlip) {
 
 						if (matchedCards.length === cardDeck.length/2) {
 							setTimeout(function() {
+								stopTimer();
 								console.log('game over');
 								youWin();
 							}, 500); //delay congradulations message 1/2 second
@@ -122,6 +147,27 @@ card.forEach(function (cardFlip) {
 	});
 });
 
+//star rating
+
+var starIcons = [ "fa-star-o" ,"fa-star-o", "fa-star-o" ]; // star icons stored in an array
+
+function buildStars(star) {			
+	return `<li data-card="${star}"> <i class="fa ${star}"></i> </li>`;
+} // builds the star icon <ul> dynamically using starIcons array
+
+function starRating() {
+	const showStars = document.querySelector('.stars');
+
+	let makeStars = starIcons.map(function(icon) {
+		return buildStars(icon);
+	});
+
+	showStars.innerHTML = makeStars.join('');
+}
+
+// remove class fa-star-o and add class fa-star to fill in star
+starRating();
+
 function youWin() {
 	const message = document.querySelector('#winnerStats div');
 	const closeBtn = document.querySelector('.close');
@@ -137,14 +183,14 @@ function youWin() {
 	});
 
 	//time:
+	stopTimer();
 
 	//moves:
-	const movesCounter = document.querySelector('.moves');
-	movesCounter.innerHTML = moves;
+	const movesEnd = document.querySelector('.finalMoves');
+	movesEnd.innerHTML = moves + ' Moves';
 
 	//star rating:
 	
-	//window.alert('you win, working on pop-up message');
 }
 
 
