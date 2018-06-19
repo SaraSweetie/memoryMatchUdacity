@@ -123,13 +123,17 @@ card.forEach(function (cardFlip) {
 });
 
 function youWin() {
-	//congradulatoins message
+	//congradulatoins message show
+	const message = document.querySelector('#winnerStats div');
+	message.style.visibility = 'visible';
+
 	//popup
 	//playagin button
 	//time:
 	//moves:
 	//star rating:
-	window.alert('you win, working on pop-up message');
+	
+	//window.alert('you win, working on pop-up message');
 }
 
 
