@@ -33,6 +33,15 @@ h1 {
     font-weight: 300;
 }
 
+h2 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 3em;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+
 /*
  * Styles for the deck of cards
  */
@@ -106,4 +115,45 @@ h1 {
 .score-panel .restart {
     float: right;
     cursor: pointer;
+}
+
+/*
+ * Styles for the Winner Statistics Pop-up
+ */
+
+#winnerStats {
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+    background-image: url('../img/geometry2.png');
+}
+
+#winnerStats p {
+    text-align: center;
+}
+
+#winnerStats ul {
+    list-style-type: none;
+    text-align: left;
+    margin-left: 20%;
+}
+
+#winnerStats button {
+    text-align: center;
+    font-size: 1em;
+    height: 45px;
+    width: 30%;
+    margin: 2%;
+    border: 2px solid #02ccba;
+    border-radius: 5px;
+}
+
+#winnerStats button:hover {
+    box-shadow: 5px 5px 20px 0 rgba(46, 61, 73, 0.5);
+    border: 2px solid #aa7ecd;
 }
