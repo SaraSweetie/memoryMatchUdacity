@@ -53,6 +53,7 @@ startGame();
 
 const card = document.querySelectorAll('.card');
 let openCards = []; //empty array to hold the open cards
+let matchedCards = []; //empty array to hold the matched cards
 let moves = 0; //to count the number of moves/ card clicks
 const movesCounter = document.querySelector('.moves');
 const resetDeck = document.querySelector('.restart');
@@ -83,18 +84,21 @@ card.forEach(function (cardFlip) {
 			cardFlip.classList.add('open', 'show'); //cards flip by adding .open and .show classes
 				
 				
-
-				//if cards match do this
-				//if (openCards.classList.contains('match') ){
-					//openCards.classList.add('match');
-				//}
-
 				if (openCards.length == 2) {
 					//if 2 cards showing match
 					if (openCards[0].dataset.card === openCards[1].dataset.card) {
 						console.log('match!!');
 						openCards[0].classList.add('open', 'show', 'match'); //first card clicked on added to the array [0] 
 						openCards[1].classList.add('open', 'show', 'match'); //second card clicked on added to the array [1]
+
+						matchedCards.push(cardFlip); //adds matched cards to the matchedCards array
+
+						if (matchedCards.length === cardDeck.length/2) {
+							setTimeout(function() {
+								console.log('game over');
+								youWin();
+							}, 500); //delay congradulations message 1/2 second
+						}
 
 						openCards = []; // after match set number of cards in array back to 0
 					}else {//if cards don't match unFlip them
@@ -118,6 +122,15 @@ card.forEach(function (cardFlip) {
 	});
 });
 
+function youWin() {
+	//congradulatoins message
+	//popup
+	//playagin button
+	//time:
+	//moves:
+	//star rating:
+	window.alert('you win, working on pop-up message');
+}
 
 
 /*
