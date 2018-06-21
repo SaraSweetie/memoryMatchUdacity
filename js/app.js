@@ -87,11 +87,6 @@ let timer = setInterval(function(){
 		gameTimer.innerHTML = 'Timer ' + time;
 	}, 1000);
 
-/*gameTimer.innerHTML = 'Time ' + timer;
-function gameTimer() {
-	timer = 0;
-}*/
-
 function startTimer() {
 	card.addEventListener('click', function(e) {
 		gameTimer();
@@ -101,7 +96,6 @@ function startTimer() {
 function stopTimer() {
   clearInterval(timer);
 }
-
 
 //card flipping and matching
 card.forEach(function (cardFlip) {
@@ -216,10 +210,12 @@ function youWin() {
 
 	//time:
 	stopTimer();
+	const timeEnd = document.querySelector('.finalTime');
+	timeEnd.innerHTML = 'Time: ' + time;
 
 	//moves:
 	const movesEnd = document.querySelector('.finalMoves');
-	movesEnd.innerHTML = moves + ' Moves';
+	movesEnd.innerHTML = 'Moves: ' + moves;
 
 	//star rating:
 	
