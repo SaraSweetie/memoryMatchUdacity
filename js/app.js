@@ -81,12 +81,16 @@ resetDeck.addEventListener('click', function(e) {
 
 //game timer
 let time = 0;
-let timer = setInterval(function(){ time ++; console.log(time);}, 1000);
+let timer = setInterval(function(){
+		time ++;
+		let gameTimer = document.querySelector('.gameTimer');
+		gameTimer.innerHTML = 'Timer ' + time;
+	}, 1000);
 
-gameTime.innerHTML = 'Time ' + timer;
+/*gameTimer.innerHTML = 'Time ' + timer;
 function gameTimer() {
 	timer = 0;
-}
+}*/
 
 function startTimer() {
 	card.addEventListener('click', function(e) {
