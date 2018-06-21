@@ -135,6 +135,7 @@ card.forEach(function (cardFlip) {
 							});
 							openCards = []; // set card array back to 0
 						}, 1000); //delay flip back over 1000 miliseconds = 1 second
+						///NEED TO RETHINK, using setTimeout 1 second causes bug of allowing to click more than 2 cards open
 					}
 					moves += 1; // increment moves after 2 cards clicked
 					//console.log(moves);
