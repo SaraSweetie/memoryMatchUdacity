@@ -149,7 +149,7 @@ card.forEach(function (cardFlip) {
 	});
 });
 
-//star rating
+//star rating trying to build dynamically...
 
 //var starIcons = [ "fa-star-o" ,"fa-star-o", "fa-star-o" ]; // star icons stored in an array
 /*
@@ -164,49 +164,36 @@ function buildStars() {
 }
 
 buildStars();
-
-
 	let makeStars = starIcons.map(function(icon) {
 		return buildStars(icon);
 	});
 
 	starRow.innerHTML = makeStars.join(''); //builds stars
-
-
-///// NEED this to loop through and add 1-3 to the star #id//////
-//////START HERE/////
-
-
 } // builds the star icon <ul> dynamically using starIcons array
 */
 
 // remove class fa-star-o and add class fa-star to fill in star
-//starRating();
+
+//starRating using <li> in index.html
 function starRating() {
 	let oneStar = document.getElementById('star1');
 	let twoStars = document.getElementById('star2');
 	let threeStars = document.getElementById('star3');
 	let moves = 0;
 	
-	oneStar.classList.replace("fa-star-o", "fa-star");
-	console.log(moves);
+	console.log('3 stars');
 
 	switch(moves) {
-		case 8:
-			oneStar.classList.replace("fa-star-o", "fa-star");
-			twoStars.classList.replace("fa-star-o", "fa-star");
-			threeStars.classList.replace("fa-star-o", "fa-star");
+		case 12: // remove a star by switching class
+			threeStars.classList.replace("fa-star", "fa-star-o");
+			console.log('2 stars');
 			break;
-		case 12:
-			oneStar.classList.replace("fa-star-o", "fa-star");
-			twoStars.classList.replace("fa-star-o", "fa-star");
-			break;
-		case 15:
-			oneStar.classList.replace("fa-star-o", "fa-star");
+		case 15: // remove another star by switching class
+			twoStar.classList.replace("fa-star", "fa-star-o");
+			console.log('1 star');
 			break;
 	}
 }
-
 
 function youWin() {
 	const message = document.querySelector('#winnerStats div');
