@@ -179,16 +179,21 @@ function starRating() {
 	let twoStars = document.getElementById('star2');
 	let threeStars = document.getElementById('star3');
 	let moves = 0;
+	let stars = 3;
 	
 	console.log('3 stars');
+	console.log(`moves: ${moves}`);
+	// NEED to get moves from flipcard function Line 100
 
 	switch(moves) {
 		case 12: // remove a star by switching class
 			threeStars.classList.replace("fa-star", "fa-star-o");
+			stars = 2;
 			console.log('2 stars');
 			break;
 		case 15: // remove another star by switching class
 			twoStar.classList.replace("fa-star", "fa-star-o");
+			stars = 1;
 			console.log('1 star');
 			break;
 	}
@@ -197,11 +202,18 @@ function starRating() {
 function youWin() {
 	const message = document.querySelector('#winnerStats div');
 	const closeBtn = document.querySelector('.close');
+	const restartBtn = document.querySelector('.restart');
 	
 	//congradulatoins message show
 	message.style.visibility = 'visible';
 
 	//playagin button
+	restartBtn.addEventListener('click', function(e) {
+		console.log('button clicked');
+		//this is not working.... why?
+		message.style.visibility = 'hidden';
+		startGame();
+	});
 
 	//close buttion
 	closeBtn.addEventListener('click', function(e) {
@@ -218,7 +230,8 @@ function youWin() {
 	movesEnd.innerHTML = 'Moves: ' + moves;
 
 	//star rating:
-	
+	const ratingEnd = document.querySelector('.finalStars');
+	ratingEnd.innerHTML = 'Rating: ' //+ stars;
 }
 
 
