@@ -47,6 +47,8 @@ function startGame() {
 
 	deck.innerHTML = cardHTML.join(''); // add the cardHTML to the .deck <ul> in the html
 	let moves = 0;
+
+	starRating();
 }
 
 startGame();
@@ -149,24 +151,62 @@ card.forEach(function (cardFlip) {
 
 //star rating
 
-var starIcons = [ "fa-star-o" ,"fa-star-o", "fa-star-o" ]; // star icons stored in an array
+//var starIcons = [ "fa-star-o" ,"fa-star-o", "fa-star-o" ]; // star icons stored in an array
+/*
+function buildStars() {
+	
+	const starRow = document.querySelector('.stars');
 
-function buildStars(star) {			
-	return `<li data-card="${star}"> <i class="fa ${star}"></i> </li>`;
-} // builds the star icon <ul> dynamically using starIcons array
+	for (var i=1; i<4; i++) {
+		const eachStar = document.createElement(`<li><i id="star${i}" class="fa fa-star-o"></i></li>`);
+		starRow.appendChild(eachStar);
+	}
+}
 
-function starRating() {
-	const showStars = document.querySelector('.stars');
+buildStars();
+
 
 	let makeStars = starIcons.map(function(icon) {
 		return buildStars(icon);
 	});
 
-	showStars.innerHTML = makeStars.join('');
-}
+	starRow.innerHTML = makeStars.join(''); //builds stars
+
+
+///// NEED this to loop through and add 1-3 to the star #id//////
+//////START HERE/////
+
+
+} // builds the star icon <ul> dynamically using starIcons array
+*/
 
 // remove class fa-star-o and add class fa-star to fill in star
-starRating();
+//starRating();
+function starRating() {
+	let oneStar = document.getElementById('star1');
+	let twoStars = document.getElementById('star2');
+	let threeStars = document.getElementById('star3');
+	let moves = 0;
+	
+	oneStar.classList.replace("fa-star-o", "fa-star");
+	console.log(moves);
+
+	switch(moves) {
+		case 8:
+			oneStar.classList.replace("fa-star-o", "fa-star");
+			twoStars.classList.replace("fa-star-o", "fa-star");
+			threeStars.classList.replace("fa-star-o", "fa-star");
+			break;
+		case 12:
+			oneStar.classList.replace("fa-star-o", "fa-star");
+			twoStars.classList.replace("fa-star-o", "fa-star");
+			break;
+		case 15:
+			oneStar.classList.replace("fa-star-o", "fa-star");
+			break;
+	}
+}
+
 
 function youWin() {
 	const message = document.querySelector('#winnerStats div');
@@ -204,3 +244,9 @@ function youWin() {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+
+
+
+
+
