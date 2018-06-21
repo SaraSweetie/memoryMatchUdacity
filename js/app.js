@@ -46,9 +46,6 @@ function startGame() {
 	});
 
 	deck.innerHTML = cardHTML.join(''); // add the cardHTML to the .deck <ul> in the html
-	let moves = 0;
-
-	starRating();
 }
 
 startGame();
@@ -57,6 +54,7 @@ const card = document.querySelectorAll('.card');
 let openCards = []; //empty array to hold the open cards
 let matchedCards = []; //empty array to hold the matched cards
 let moves = 0; //to count the number of moves/ card clicks
+let stars = 3; //global star counter
 const gameTime = document.querySelector('.timer');
 const movesCounter = document.querySelector('.moves');
 const resetDeck = document.querySelector('.restart');
@@ -138,6 +136,7 @@ card.forEach(function (cardFlip) {
 					moves += 1; // increment moves after 2 cards clicked
 					//console.log(moves);
 					//console.log(movesCounter);
+					starRating();
 					if (moves == 1) {
 						movesCounter.innerHTML = moves + ' Move';
 					}else {
@@ -178,23 +177,23 @@ function starRating() {
 	let oneStar = document.getElementById('star1');
 	let twoStars = document.getElementById('star2');
 	let threeStars = document.getElementById('star3');
-	let moves = 0;
-	let stars = 3;
 	
-	console.log('3 stars');
 	console.log(`moves: ${moves}`);
-	// NEED to get moves from flipcard function Line 100
 
 	switch(moves) {
+		case 0: // default
+			threeStars.classList.replace("fa-star", "fa-star-o");
+			twoStars.classList.replace("fa-star", "fa-star-o");
+			oneStar.classList.replace("fa-star", "fa-star-o");
+			stars = '3 Stars';
+			break;
 		case 12: // remove a star by switching class
 			threeStars.classList.replace("fa-star", "fa-star-o");
-			stars = 2;
-			console.log('2 stars');
+			stars = '2 Stars';
 			break;
 		case 15: // remove another star by switching class
-			twoStar.classList.replace("fa-star", "fa-star-o");
-			stars = 1;
-			console.log('1 star');
+			twoStars.classList.replace("fa-star", "fa-star-o");
+			stars = '1 Star';
 			break;
 	}
 }
@@ -231,9 +230,8 @@ function youWin() {
 
 	//star rating:
 	const ratingEnd = document.querySelector('.finalStars');
-	ratingEnd.innerHTML = 'Rating: ' //+ stars;
+	ratingEnd.innerHTML = 'Rating: ' + stars ;
 }
-
 
 /*
  * set up the event listener for a card. If a card is clicked:
