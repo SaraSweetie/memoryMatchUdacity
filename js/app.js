@@ -60,17 +60,19 @@ startGame();
 
 //game timer
 let time = 0;
-let timer = setInterval(function(){
+let timer;
+
+	// card.addEventListener('click', function() {
+	// 	gameTimer();
+	// });
+
+//start timer
+function startTimer() {
+	timer = setInterval(function(){
 		time ++;
 		let clock = document.querySelector('.gameTimer');
 		clock.innerHTML = 'Timer ' + time;
 	}, 1000);
-
-//wait for a card to be clicked to start the timer
-function startTimer() {
-	card.addEventListener('click', function() {
-		gameTimer();
-	});
 }
 
 //call this to stop the timmer
@@ -101,6 +103,7 @@ function restartGame() {
 //card flipping and matching
 card.forEach(function (cardFlip) {
 	cardFlip.addEventListener('click', function() {
+		startTimer();
 	
 		if (!cardFlip.classList.contains('open') && !cardFlip.classList.contains('show') && !cardFlip.classList.contains('match') ) { // prevents same card from being clicked or if card alread matched
 			openCards.push(cardFlip); //adds current card clicked and flipped to the openCards array
