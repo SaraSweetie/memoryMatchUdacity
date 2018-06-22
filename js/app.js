@@ -38,14 +38,18 @@ function shuffle(array) {
 }
 
 const deck = document.querySelector('.deck');  // <ul> with .deck class
-
 let openCards = []; //empty array to hold the open cards
 let matchedCards = []; //empty array to hold the matched cards
 let moves = 0; //to count the number of moves/ card clicks
 let stars = 3; //global star counter
 const gameTime = document.querySelector('.timer');
 const movesCounter = document.querySelector('.moves');
-const resetDeck = document.querySelector('.restart');
+
+//restart button on gameboard calls restart game
+let resetDeck = document.querySelector('.restart');
+resetDeck.addEventListener('click', function() {
+	restartGame();
+});
 
 function startGame() {
 	let cardHTML = shuffle(cardDeck).map(function(cards) {
@@ -54,19 +58,26 @@ function startGame() {
 
 	deck.innerHTML = cardHTML.join(''); // add the cardHTML to the .deck <ul> in the html
 	console.log('game started deck loaded');
+	let clicks = 0;
 
 	// resource Mike Wales https://www.youtube.com/watch?v=_rUH-sEs68Y
 	const card = document.querySelectorAll('.card');
 	card.forEach(function (cardFlip) {
 		cardFlip.addEventListener('click', function() {
-			//startTimer();
+			clicks ++;
+			if (clicks === 1){ //only start timer after first click
+				startTimer();
+			}
 		
 			if (!cardFlip.classList.contains('open') && !cardFlip.classList.contains('show') && !cardFlip.classList.contains('match') ) { // prevents same card from being clicked or if card alread matched
 				openCards.push(cardFlip); //adds current card clicked and flipped to the openCards array
 				console.log(`number of open cards ${openCards.length} `);
 				cardFlip.classList.add('open', 'show'); //cards flip by adding .open and .show classes
 					
-					
+					/*if (openCards.length >= 2) {
+						//dont flip!! only want 2 cards open
+					}*/
+
 					if (openCards.length == 2) {
 						//if 2 cards showing match
 						if (openCards[0].dataset.card === openCards[1].dataset.card) {
@@ -111,11 +122,6 @@ function startGame() {
 
 startGame();
 
-//game timer
-	// card.addEventListener('click', function() {
-	// 	gameTimer();
-	// });
-
 //start timer
 let time = 0;
 let timer;
@@ -127,19 +133,15 @@ function startTimer() {
 	}, 1000);
 }
 
-//call this to stop the timmer
+//call this to stop the timer
 function stopTimer() {
   clearInterval(timer);
 }
 
-// restart button
-resetDeck.addEventListener('click', function() {
-	restartGame();
-});
-
+// restart game
 function restartGame() {
-		// clear moves
 		moves = 0;
+		time = 0;
 		movesCounter.innerHTML = moves + ' Moves';
 
 		// flip all cards back over, *Array.from() converts NodeList to an array with the new ES6*
@@ -149,7 +151,12 @@ function restartGame() {
 		});
 		
 		// clear timer
-		stopTimer();
+		let clock = document.querySelector('.gameTimer');
+		clock.innerHTML= 'Timer ' + 0;
+		clearInterval(timer); // stops timer
+
+		//restart game
+		startGame();
 }
 
 //card flipping and matching
@@ -208,21 +215,26 @@ function starRating() {
 			twoStars.classList.replace("fa-star", "fa-star-o");
 			stars = '1 Star';
 			break;
+		default:
+			threeStars.classList.replace("fa-star", "fa-star-o");
+			twoStars.classList.replace("fa-star", "fa-star-o");
+			oneStar.classList.replace("fa-star", "fa-star-o");
+			stars = '3 Stars';
 	}
 }
 
 function youWin() {
 	const message = document.querySelector('#winnerStats div');
 	const closeBtn = document.querySelector('.close');
-	const restartBtn = document.querySelector('.restart');
+	const restartBtn = document.querySelectorAll('.restart')[1];
+	clearInterval(timer);
 	
 	//congradulatoins message show
 	message.style.visibility = 'visible';
 
 	//playagin button
 	restartBtn.addEventListener('click', function() {
-		console.log('button clicked');
-		//this is not working.... why?
+		message.style.visibility = 'hidden';
 		restartGame();
 	});
 
