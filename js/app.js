@@ -38,7 +38,7 @@ function shuffle(array) {
 }
 
 const deck = document.querySelector('.deck');  // <ul> with .deck class
-const card = document.querySelectorAll('.card');
+
 let openCards = []; //empty array to hold the open cards
 let matchedCards = []; //empty array to hold the matched cards
 let moves = 0; //to count the number of moves/ card clicks
@@ -54,19 +54,71 @@ function startGame() {
 
 	deck.innerHTML = cardHTML.join(''); // add the cardHTML to the .deck <ul> in the html
 	console.log('game started deck loaded');
+
+	// resource Mike Wales https://www.youtube.com/watch?v=_rUH-sEs68Y
+	const card = document.querySelectorAll('.card');
+	card.forEach(function (cardFlip) {
+		cardFlip.addEventListener('click', function() {
+			startTimer();
+		
+			if (!cardFlip.classList.contains('open') && !cardFlip.classList.contains('show') && !cardFlip.classList.contains('match') ) { // prevents same card from being clicked or if card alread matched
+				openCards.push(cardFlip); //adds current card clicked and flipped to the openCards array
+				console.log(`number of open cards ${openCards.length} `);
+				cardFlip.classList.add('open', 'show'); //cards flip by adding .open and .show classes
+					
+					
+					if (openCards.length == 2) {
+						//if 2 cards showing match
+						if (openCards[0].dataset.card === openCards[1].dataset.card) {
+							console.log('match!!');
+							openCards[0].classList.add('open', 'show', 'match'); //first card clicked on added to the array [0] 
+							openCards[1].classList.add('open', 'show', 'match'); //second card clicked on added to the array [1]
+
+							matchedCards.push(cardFlip); //adds matched cards to the matchedCards array
+
+							if (matchedCards.length === cardDeck.length/2) {
+								setTimeout(function() {
+									stopTimer();
+									console.log('game over');
+									youWin();
+								}, 500); //delay congradulations message 1/2 second
+							}
+
+							openCards = []; // after match set number of cards in array back to 0
+						}else {//if cards don't match unFlip them
+							setTimeout(function() {
+								openCards.forEach(function(card) {
+									card.classList.remove('open', 'show'); //cards flip by removing .open and .show classes
+								});
+								openCards = []; // set card array back to 0
+							}, 1000); //delay flip back over 1000 miliseconds = 1 second
+							///NEED TO RETHINK, using setTimeout 1 second causes bug of allowing to click more than 2 cards open
+						}
+						moves += 1; // increment moves after 2 cards clicked
+						//console.log(moves);
+						//console.log(movesCounter);
+						starRating();
+						if (moves == 1) {
+							movesCounter.innerHTML = moves + ' Move';
+						}else {
+							movesCounter.innerHTML = moves + ' Moves';
+						}
+					}
+			}
+		});
+	});
 }
 
 startGame();
 
 //game timer
-let time = 0;
-let timer;
-
 	// card.addEventListener('click', function() {
 	// 	gameTimer();
 	// });
 
 //start timer
+let time = 0;
+let timer;
 function startTimer() {
 	timer = setInterval(function(){
 		time ++;
@@ -101,56 +153,12 @@ function restartGame() {
 }
 
 //card flipping and matching
-card.forEach(function (cardFlip) {
-	cardFlip.addEventListener('click', function() {
-		startTimer();
-	
-		if (!cardFlip.classList.contains('open') && !cardFlip.classList.contains('show') && !cardFlip.classList.contains('match') ) { // prevents same card from being clicked or if card alread matched
-			openCards.push(cardFlip); //adds current card clicked and flipped to the openCards array
-			console.log(`number of open cards ${openCards.length} `);
-			cardFlip.classList.add('open', 'show'); //cards flip by adding .open and .show classes
-				
-				
-				if (openCards.length == 2) {
-					//if 2 cards showing match
-					if (openCards[0].dataset.card === openCards[1].dataset.card) {
-						console.log('match!!');
-						openCards[0].classList.add('open', 'show', 'match'); //first card clicked on added to the array [0] 
-						openCards[1].classList.add('open', 'show', 'match'); //second card clicked on added to the array [1]
 
-						matchedCards.push(cardFlip); //adds matched cards to the matchedCards array
+/*you define click listener before the card ever render. To resolve this, here how you can do it :
+1. put your card.forEach() function called at the end of funciton startGame()
+2. before call card.forEach() function at  startGame(), you need to redefine the card variable*/
 
-						if (matchedCards.length === cardDeck.length/2) {
-							setTimeout(function() {
-								stopTimer();
-								console.log('game over');
-								youWin();
-							}, 500); //delay congradulations message 1/2 second
-						}
 
-						openCards = []; // after match set number of cards in array back to 0
-					}else {//if cards don't match unFlip them
-						setTimeout(function() {
-							openCards.forEach(function(card) {
-								card.classList.remove('open', 'show'); //cards flip by removing .open and .show classes
-							});
-							openCards = []; // set card array back to 0
-						}, 1000); //delay flip back over 1000 miliseconds = 1 second
-						///NEED TO RETHINK, using setTimeout 1 second causes bug of allowing to click more than 2 cards open
-					}
-					moves += 1; // increment moves after 2 cards clicked
-					//console.log(moves);
-					//console.log(movesCounter);
-					starRating();
-					if (moves == 1) {
-						movesCounter.innerHTML = moves + ' Move';
-					}else {
-						movesCounter.innerHTML = moves + ' Moves';
-					}
-				}
-		}
-	});
-});
 
 //star rating trying to build dynamically...
 
