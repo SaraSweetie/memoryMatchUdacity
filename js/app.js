@@ -37,19 +37,7 @@ function shuffle(array) {
     return array;
 }
 
-
-function startGame() {
-	const deck = document.querySelector('.deck');  // <ul> with .deck class
-
-	let cardHTML = shuffle(cardDeck).map(function(cards) {
-		return buildDeck(cards);
-	});
-
-	deck.innerHTML = cardHTML.join(''); // add the cardHTML to the .deck <ul> in the html
-}
-
-startGame();
-
+const deck = document.querySelector('.deck');  // <ul> with .deck class
 const card = document.querySelectorAll('.card');
 let openCards = []; //empty array to hold the open cards
 let matchedCards = []; //empty array to hold the matched cards
@@ -59,46 +47,60 @@ const gameTime = document.querySelector('.timer');
 const movesCounter = document.querySelector('.moves');
 const resetDeck = document.querySelector('.restart');
 
-
-// restart button
-resetDeck.addEventListener('click', function(e) {
-	// clear moves
-	moves = 0;
-	movesCounter.innerHTML = moves + ' Moves';
-
-	// flip all cards back over, *Array.from() converts NodeList to an array with the new ES6*
-	let openCardsArray = Array.from(document.querySelectorAll('.card'));
-	openCardsArray.forEach(function(array){
-		array.classList.remove('open', 'show', 'match');
+function startGame() {
+	let cardHTML = shuffle(cardDeck).map(function(cards) {
+		return buildDeck(cards);
 	});
-	
-	// clear timer
-	stopTimer();
 
-});
+	deck.innerHTML = cardHTML.join(''); // add the cardHTML to the .deck <ul> in the html
+	console.log('game started deck loaded');
+}
+
+startGame();
 
 //game timer
 let time = 0;
 let timer = setInterval(function(){
 		time ++;
-		let gameTimer = document.querySelector('.gameTimer');
-		gameTimer.innerHTML = 'Timer ' + time;
+		let clock = document.querySelector('.gameTimer');
+		clock.innerHTML = 'Timer ' + time;
 	}, 1000);
 
+//wait for a card to be clicked to start the timer
 function startTimer() {
-	card.addEventListener('click', function(e) {
+	card.addEventListener('click', function() {
 		gameTimer();
 	});
 }
 
+//call this to stop the timmer
 function stopTimer() {
   clearInterval(timer);
 }
 
+// restart button
+resetDeck.addEventListener('click', function() {
+	restartGame();
+});
+
+function restartGame() {
+		// clear moves
+		moves = 0;
+		movesCounter.innerHTML = moves + ' Moves';
+
+		// flip all cards back over, *Array.from() converts NodeList to an array with the new ES6*
+		let openCardsArray = Array.from(document.querySelectorAll('.card'));
+		openCardsArray.forEach(function(array){
+			array.classList.remove('open', 'show', 'match');
+		});
+		
+		// clear timer
+		stopTimer();
+}
+
 //card flipping and matching
 card.forEach(function (cardFlip) {
-	cardFlip.addEventListener('click', function(e) {
-		
+	cardFlip.addEventListener('click', function() {
 	
 		if (!cardFlip.classList.contains('open') && !cardFlip.classList.contains('show') && !cardFlip.classList.contains('match') ) { // prevents same card from being clicked or if card alread matched
 			openCards.push(cardFlip); //adds current card clicked and flipped to the openCards array
@@ -207,20 +209,19 @@ function youWin() {
 	message.style.visibility = 'visible';
 
 	//playagin button
-	restartBtn.addEventListener('click', function(e) {
+	restartBtn.addEventListener('click', function() {
 		console.log('button clicked');
 		//this is not working.... why?
 		message.style.visibility = 'hidden';
-		startGame();
+		restartGame();
 	});
 
 	//close buttion
-	closeBtn.addEventListener('click', function(e) {
+	closeBtn.addEventListener('click', function() {
 		message.style.visibility = 'hidden';
 	});
 
 	//time:
-	stopTimer();
 	const timeEnd = document.querySelector('.finalTime');
 	timeEnd.innerHTML = 'Time: ' + time;
 
@@ -243,9 +244,3 @@ function youWin() {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-
-
-
-
-
-
