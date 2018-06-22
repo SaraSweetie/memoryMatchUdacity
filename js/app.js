@@ -59,7 +59,7 @@ function startGame() {
 	const card = document.querySelectorAll('.card');
 	card.forEach(function (cardFlip) {
 		cardFlip.addEventListener('click', function() {
-			startTimer();
+			//startTimer();
 		
 			if (!cardFlip.classList.contains('open') && !cardFlip.classList.contains('show') && !cardFlip.classList.contains('match') ) { // prevents same card from being clicked or if card alread matched
 				openCards.push(cardFlip); //adds current card clicked and flipped to the openCards array
@@ -223,7 +223,6 @@ function youWin() {
 	restartBtn.addEventListener('click', function() {
 		console.log('button clicked');
 		//this is not working.... why?
-		message.style.visibility = 'hidden';
 		restartGame();
 	});
 
