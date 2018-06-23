@@ -1,12 +1,12 @@
-// Memory Match game for Udacity Front End Nanodegree program
+//Memory Match game for Udacity Front End Nanodegree program
 let cards = [ "fa-paw", "fa-puzzle-piece", "fa-gift", "fa-camera-retro", "fa-gratipay", "fa-pagelines", "fa-fort-awesome", "fa-bug"];
 var cardDeck = [...cards, ...cards]; // card icons stored in an array x2
 
 function buildDeck(icon) {			
 	return `<li class="card" data-card="${icon}"> <i class="fa ${icon}"></i> </li>`;
-} // builds the .deck <ul> dynamically using cardDeck array
+} //builds the .deck <ul> dynamically using cardDeck array
 
-// Shuffle function from http://stackoverflow.com/a/2450976
+//Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -30,6 +30,9 @@ const gameTime = document.querySelector('.timer');
 const movesCounter = document.querySelector('.moves');
 let time = 0;
 let timer;
+const oneStar = document.getElementById('star1');
+const twoStars = document.getElementById('star2');
+const threeStars = document.getElementById('star3');
 
 //restart button on gameboard calls restart game
 let resetDeck = document.querySelector('.restart');
@@ -42,11 +45,10 @@ function startGame() {
 		return buildDeck(cards);
 	});
 
-	deck.innerHTML = cardHTML.join(''); // add the cardHTML to the .deck <ul> in the html
+	deck.innerHTML = cardHTML.join(''); //add the cardHTML to the .deck <ul> in the html
 	console.log('game started deck loaded');
 	let clicks = 0;
 
-	// resource Mike Wales https://www.youtube.com/watch?v=_rUH-sEs68Y
 	const card = document.querySelectorAll('.card');
 	card.forEach(function (cardFlip) {
 		cardFlip.addEventListener('click', function() {
@@ -83,17 +85,16 @@ function startGame() {
 								}, 500); //delay congradulations message 1/2 second
 							}
 
-							openCards = []; // after match set number of cards in array back to 0
+							openCards = []; //after match set number of cards in array back to 0
 						}else {//if cards don't match unFlip them
 							setTimeout(function() {
 								openCards.forEach(function(card) {
 									card.classList.remove('open', 'show'); //cards flip by removing .open and .show classes
 								});
-								openCards = []; // set card array back to 0
+								openCards = []; //set card array back to 0
 							}, 500); //delay flip back over 500 miliseconds  or 1/2 a second
-							///NEED TO RETHINK, using setTimeout 1 second causes bug of allowing to click more than 2 cards open
 						}
-						moves += 1; // increment moves after 2 cards clicked
+						moves += 1; //increment moves after 2 cards clicked
 						//console.log(moves);
 						//console.log(movesCounter);
 						starRating();
@@ -124,7 +125,7 @@ function stopTimer() {
   clearInterval(timer);
 }
 
-// restart game
+//restart game
 function restartGame() {
 		moves = 0;
 		time = 0;
@@ -132,77 +133,45 @@ function restartGame() {
 		openCards =  []; //empty array to hold the open cards
 		matchedCards = []; //empty array to hold the matched cards
 
-		// flip all cards back over, *Array.from() converts NodeList to an array with the new ES6*
+		//flip all cards back over, *Array.from() converts NodeList to an array with the new ES6*
 		let openCardsArray = Array.from(document.querySelectorAll('.card'));
 		openCardsArray.forEach(function(array){
 			array.classList.remove('open', 'show', 'match');
 		});
 		
-		// clear timer
+		//clear timer
 		let clock = document.querySelector('.gameTimer');
 		clock.innerHTML= `Timer ${time}`;
 		clearInterval(timer); // stops timer
 
-		// reset stars based on reset moves
-		starRating();
+		//reset stars
+		threeStars.classList.replace("fa-star-o", "fa-star");
+		twoStars.classList.replace("fa-star-o", "fa-star");
+		oneStar.classList.replace("fa-star-o", "fa-star");
 
 		//restart game
 		startGame();
 }
 
-//card flipping and matching
-
-/*you define click listener before the card ever render. To resolve this, here how you can do it :
-1. put your card.forEach() function called at the end of funciton startGame()
-2. before call card.forEach() function at  startGame(), you need to redefine the card variable*/
-
-
-
-//star rating trying to build dynamically...
-
-//var starIcons = [ "fa-star-o" ,"fa-star-o", "fa-star-o" ]; // star icons stored in an array
-/*
-function buildStars() {
-	
-	const starRow = document.querySelector('.stars');
-
-	for (var i=1; i<4; i++) {
-		const eachStar = document.createElement(`<li><i id="star${i}" class="fa fa-star-o"></i></li>`);
-		starRow.appendChild(eachStar);
-	}
-}
-
-buildStars();
-	let makeStars = starIcons.map(function(icon) {
-		return buildStars(icon);
-	});
-
-	starRow.innerHTML = makeStars.join(''); //builds stars
-} // builds the star icon <ul> dynamically using starIcons array
-*/
-
-// remove class fa-star-o and add class fa-star to fill in star
-
+//remove class fa-star-o and add class fa-star to fill in star
 //starRating using <li> in index.html
 function starRating() {
-	let oneStar = document.getElementById('star1');
-	let twoStars = document.getElementById('star2');
-	let threeStars = document.getElementById('star3');
+
 	
 	console.log(`moves: ${moves}`);
 
 	switch(moves) {
-		case 0: // default
+		case 0: //default
 			threeStars.classList.replace("fa-star", "fa-star-o");
 			twoStars.classList.replace("fa-star", "fa-star-o");
 			oneStar.classList.replace("fa-star", "fa-star-o");
 			stars = '3 Stars';
 			break;
-		case 12: // remove a star by switching class
+		case 12: //remove a star by switching class
 			threeStars.classList.replace("fa-star", "fa-star-o");
 			stars = '2 Stars';
 			break;
-		case 16: // remove another star by switching class
+		case 16: //remove another star by switching class
 			twoStars.classList.replace("fa-star", "fa-star-o");
 			stars = '1 Star';
 			break;
@@ -249,14 +218,3 @@ function youWin() {
 	const ratingEnd = document.querySelector('.finalStars');
 	ratingEnd.innerHTML = `Rating: ${stars}`;
 }
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
