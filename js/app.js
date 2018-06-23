@@ -105,9 +105,9 @@ function startGame() {
 						//console.log(movesCounter);
 						starRating();
 						if (moves == 1) {
-							movesCounter.innerHTML = moves + ' Move';
+							movesCounter.innerHTML = `${moves} Moves`;
 						}else {
-							movesCounter.innerHTML = moves + ' Moves';
+							movesCounter.innerHTML = `${moves} Moves`;
 						}
 					}
 			}
@@ -122,7 +122,7 @@ function startTimer() {
 	timer = setInterval(function(){
 		time ++;
 		let clock = document.querySelector('.gameTimer');
-		clock.innerHTML = 'Timer ' + time;
+		clock.innerHTML = `Timer ${time}`;
 	}, 1000);
 }
 
@@ -135,20 +135,23 @@ function stopTimer() {
 function restartGame() {
 		moves = 0;
 		time = 0;
-		movesCounter.innerHTML = moves + ' Moves';
+		movesCounter.innerHTML = `${moves} Moves`;
+		openCards =  []; //empty array to hold the open cards
+		matchedCards = []; //empty array to hold the matched cards
 
 		// flip all cards back over, *Array.from() converts NodeList to an array with the new ES6*
 		let openCardsArray = Array.from(document.querySelectorAll('.card'));
 		openCardsArray.forEach(function(array){
 			array.classList.remove('open', 'show', 'match');
 		});
-		let openCards = []; //empty array to hold the open cards
-		let matchedCards = []; //empty array to hold the matched cards
 		
 		// clear timer
 		let clock = document.querySelector('.gameTimer');
-		clock.innerHTML= 'Timer ' + 0;
+		clock.innerHTML= `Timer ${time}`;
 		clearInterval(timer); // stops timer
+
+		// reset stars based on reset moves
+		starRating();
 
 		//restart game
 		startGame();
@@ -210,11 +213,6 @@ function starRating() {
 			twoStars.classList.replace("fa-star", "fa-star-o");
 			stars = '1 Star';
 			break;
-		default:
-			threeStars.classList.replace("fa-star", "fa-star-o");
-			twoStars.classList.replace("fa-star", "fa-star-o");
-			oneStar.classList.replace("fa-star", "fa-star-o");
-			stars = '3 Stars';
 	}
 }
 
@@ -239,16 +237,24 @@ function youWin() {
 	});
 
 	//time:
+	const mins = Math.floor(time/60);
+	const secs = time%60;
 	const timeEnd = document.querySelector('.finalTime');
-	timeEnd.innerHTML = 'Time: ' + time;
+		if (time <= 60) {
+			timeEnd.innerHTML = `Time: ${time} seconds`;
+		}if (mins === 1) {
+			timeEnd.innerHTML = `Time: ${mins} min ${secs} secs`;
+		}if (mins >= 1) {
+			timeEnd.innerHTML = `Time: ${mins} mins ${secs} secs`;
+		}
 
 	//moves:
 	const movesEnd = document.querySelector('.finalMoves');
-	movesEnd.innerHTML = 'Moves: ' + moves;
+	movesEnd.innerHTML = `Moves: ${moves}`;
 
 	//star rating:
 	const ratingEnd = document.querySelector('.finalStars');
-	ratingEnd.innerHTML = 'Rating: ' + stars ;
+	ratingEnd.innerHTML = `Rating: ${stars}`;
 }
 
 /*
