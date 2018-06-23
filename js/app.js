@@ -37,6 +37,8 @@ let moves = 0; //to count the number of moves/ card clicks
 let stars = 3; //global star counter
 const gameTime = document.querySelector('.timer');
 const movesCounter = document.querySelector('.moves');
+let time = 0;
+let timer;
 
 //restart button on gameboard calls restart game
 let resetDeck = document.querySelector('.restart');
@@ -116,8 +118,6 @@ function startGame() {
 startGame();
 
 //start timer
-let time = 0;
-let timer;
 function startTimer() {
 	timer = setInterval(function(){
 		time ++;
@@ -142,6 +142,8 @@ function restartGame() {
 		openCardsArray.forEach(function(array){
 			array.classList.remove('open', 'show', 'match');
 		});
+		let openCards = []; //empty array to hold the open cards
+		let matchedCards = []; //empty array to hold the matched cards
 		
 		// clear timer
 		let clock = document.querySelector('.gameTimer');
