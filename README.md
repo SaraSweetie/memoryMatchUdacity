@@ -4,17 +4,34 @@
 
 * [Instructions](#instructions)
 * [Contributing](#contributing)
+* [Dependencies](#dependencies)
+* [Resources](#resources)
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+To play memory match you click on a card to flip it over, and then click on another card to flip it over and see it the two cards match. If the two cards match they will stay turned over. Your goal is to match all of the cards.
 
-To get started, open `js/app.js` and start building out the app's functionality
+You are given a star rating as you play. You will begin with three stars and your star rating will slowly decrease everytime your flipped cards do not mach. After 12 failed matches your star rating will decrease to two, and after 16 failed matches your star rating will decrease to one.
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+You can restart the game at any time.
+
+Your moves and time will be tracked as you play. When you win the game by matching all of the cards, a pop-up will display your game stats and ask you if you would like to play again.
+
+## Dependencies
+
+* Font Awesome 4.6.1 Library for the icons
+* Shuffle function from http://stackoverflow.com/a/2450976
+* Google Font - Coda
+
+## Resources
+
+* Mike Wales from Udacity https://www.youtube.com/watch?v=_rUH-sEs68Y
+* Memory Game Walkthrough Part 6 – The Clock - to help convert time to minutes and seconds https://matthewcranford.com/memory-game-walkthrough-part-6-the-clock/ 
+* My Nanodegree mentor: Prateek
+* Fellow FEND Nanodegree students
 
 ## Contributing
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+This repository is the starter code for the Udacity Front End Nanodegree program I am enrolled in.
 
 For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
