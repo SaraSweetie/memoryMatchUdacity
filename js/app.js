@@ -1,19 +1,10 @@
-/*
- * Create a list that holds all of your cards
- */
+// Memory Match game for Udacity Front End Nanodegree program
 let cards = [ "fa-diamond", "fa-bomb", "fa-leaf", "fa-bolt", "fa-bicycle", "fa-anchor", "fa-cube", "fa-paper-plane-o"];
 var cardDeck = [...cards, ...cards]; // card icons stored in an array x2
 
 function buildDeck(icon) {			
 	return `<li class="card" data-card="${icon}"> <i class="fa ${icon}"></i> </li>`;
 } // builds the .deck <ul> dynamically using cardDeck array
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -64,14 +55,16 @@ function startGame() {
 				startTimer();
 			}
 		
-			if (!cardFlip.classList.contains('open') && !cardFlip.classList.contains('show') && !cardFlip.classList.contains('match') ) { // prevents same card from being clicked or if card alread matched
+			if (!cardFlip.classList.contains('open') && !cardFlip.classList.contains('show') && !cardFlip.classList.contains('match')) { // prevents same card from being clicked or if card alread matched
+
 				openCards.push(cardFlip); //adds current card clicked and flipped to the openCards array
-				console.log(`number of open cards ${openCards.length} `);
+				console.log(`number of cards clicked ${openCards.length} `);
 				cardFlip.classList.add('open', 'show'); //cards flip by adding .open and .show classes
 					
-					/*if (openCards.length >= 2) {
+					if (openCards.length >= 3) {
 						//dont flip!! only want 2 cards open
-					}*/
+						cardFlip.classList.remove('open', 'show', 'match');
+					}
 
 					if (openCards.length == 2) {
 						//if 2 cards showing match
