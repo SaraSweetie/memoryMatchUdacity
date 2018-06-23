@@ -1,15 +1,8 @@
 /*
  * Create a list that holds all of your cards
  */
-var cardDeck = [ "fa-diamond" ,"fa-diamond",
-				"fa-bomb", "fa-bomb",
-				"fa-leaf", "fa-leaf",
-				"fa-bolt", "fa-bolt",
-				"fa-bicycle", "fa-bicycle",
-				"fa-anchor", "fa-anchor",
-				"fa-cube", "fa-cube",
-				"fa-paper-plane-o", "fa-paper-plane-o"
-			]; // card icons stored in an array
+let cards = [ "fa-diamond", "fa-bomb", "fa-leaf", "fa-bolt", "fa-bicycle", "fa-anchor", "fa-cube", "fa-paper-plane-o"];
+var cardDeck = [...cards, ...cards]; // card icons stored in an array x2
 
 function buildDeck(icon) {			
 	return `<li class="card" data-card="${icon}"> <i class="fa ${icon}"></i> </li>`;
@@ -87,7 +80,7 @@ function startGame() {
 
 							matchedCards.push(cardFlip); //adds matched cards to the matchedCards array
 
-							if (matchedCards.length === cardDeck.length/2) {
+							if (matchedCards.length === cards.length) {
 								setTimeout(function() {
 									stopTimer();
 									console.log('game over');
