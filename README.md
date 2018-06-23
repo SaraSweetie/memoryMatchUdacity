@@ -20,13 +20,13 @@ Your moves and time will be tracked as you play. When you win the game by matchi
 ## Dependencies
 
 * Font Awesome 4.6.1 Library for the icons
-* Shuffle function from http://stackoverflow.com/a/2450976
+* [Shuffle function](http://stackoverflow.com/a/2450976)
 * Google Font - Coda
 
 ## Resources
 
-* Mike Wales from Udacity https://www.youtube.com/watch?v=_rUH-sEs68Y
-* Memory Game Walkthrough Part 6 – The Clock - to help convert time to minutes and seconds https://matthewcranford.com/memory-game-walkthrough-part-6-the-clock/ 
+* Mike Wales from Udacity [webinar](https://www.youtube.com/watch?v=_rUH-sEs68Y)
+* [Memory Game Walkthrough Part 6 – The Clock](https://matthewcranford.com/memory-game-walkthrough-part-6-the-clock/) - to help convert time to minutes and seconds  
 * My Nanodegree mentor: Prateek
 * Fellow FEND Nanodegree students
 
